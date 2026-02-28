@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unipet Services</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+
+:root{
+--primary-blue:#1678B5;
+--light-blue:#3FA2E0;
+--cream:#F5E6C8;
+--gold:#F4B400;
+--dark-navy:#0F2A3F;
+}
+
+body{background:var(--primary-blue);color:white;}
+
+header{
+position:fixed;top:0;width:100%;
+background:var(--dark-navy);
+display:flex;align-items:center;
+padding:12px 20px;z-index:1000;
+}
+
+header img{height:45px;margin-right:10px;}
+
+.search-box{flex:1;}
+.search-box input{
+width:100%;padding:8px 15px;
+border-radius:25px;border:none;outline:none;
+}
+
+.hero{
+height:100vh;
+background:url('https://i.ibb.co/0jsZWq4Q/file-00000000e6a871fa9d5151c5737d16df.png') center/cover no-repeat;
+display:flex;align-items:center;justify-content:center;text-align:center;
+}
+
+.hero-content{
+background:rgba(15,42,63,0.9);
+padding:40px;border-radius:20px;
+}
+
+.hero h1{color:var(--cream);margin-bottom:15px;}
+.hero button{
+background:var(--gold);
+padding:12px 30px;border:none;border-radius:30px;
+font-weight:600;cursor:pointer;
+}
+
+.products{
+padding:100px 20px 40px;
+background:var(--light-blue);
+}
+
+.carousel{
+display:flex;
+overflow-x:auto;
+gap:15px;
+scroll-behavior:smooth;
+}
+
+.card{
+min-width:220px;
+background:var(--dark-navy);
+border-radius:20px;
+padding:15px;
+text-align:center;
+}
+
+.card img{
+width:100%;height:150px;
+object-fit:contain;margin-bottom:10px;
+}
+
+.quantity-box{
+display:flex;justify-content:center;align-items:center;margin:5px 0;
+}
+
+.quantity-box button{
+background:var(--gold);
+border:none;padding:5px 10px;border-radius:5px;
+}
+
+.quantity-box span{margin:0 10px;}
+
+.card button.add-btn{
+background:var(--gold);
+border:none;padding:8px 15px;
+border-radius:20px;margin-top:8px;
+cursor:pointer;
+}
+
+.cart-icon{
+position:fixed;bottom:80px;right:20px;
+background:var(--gold);
+padding:15px;border-radius:50%;
+cursor:pointer;font-weight:bold;color:black;
+}
+
+.cart-count{
+position:absolute;top:-5px;right:-5px;
+background:red;color:white;
+font-size:12px;padding:2px 6px;border-radius:50%;
+}
+
+.cart-modal{
+position:fixed;bottom:0;left:0;width:100%;
+background:var(--dark-navy);
+padding:20px;display:none;
+border-radius:20px 20px 0 0;
+max-height:80vh;overflow-y:auto;
+}
+
+.cart-item{
+display:flex;justify-content:space-between;
+margin:5px 0;
+}
+
+.remove-btn{
+background:red;color:white;border:none;
+padding:3px 8px;border-radius:5px;
+cursor:pointer;
+}
+
+.total{
+margin-top:10px;font-weight:bold;
+}
+
+.cart-modal input{
+width:100%;margin:5px 0;
+padding:8px;border-radius:10px;border:none;
+}
+
+.cart-modal button{
+background:var(--gold);
+border:none;padding:10px;
+width:100%;border-radius:20px;margin-top:10px;
+}
+
+.whatsapp{
+position:fixed;bottom:20px;right:20px;
+background:#25D366;color:white;
+padding:15px;border-radius:50%;
+text-decoration:none;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<img src="https://i.ibb.co/0dDZS5Q/Cream-Blue-Minimalist-Pet-Shop-and-Care-Logo-1.png">
+<div class="search-box">
+<input type="text" id="search" placeholder="Search products...">
+</div>
+</header>
+
+<section class="hero">
+<div class="hero-content">
+<h1>Fast Pet Food Delivery, Best Prices</h1>
+<button onclick="document.querySelector('.products').scrollIntoView({behavior:'smooth'})">
+Shop Now
+</button>
+</div>
+</section>
+
+<section class="products">
+<h2 style="text-align:center;margin-bottom:15px;color:#F5E6C8;">Our Products</h2>
+<div class="carousel" id="product-list"></div>
+</section>
+
+<div class="cart-icon" onclick="toggleCart()">
+🛒
+<span class="cart-count" id="cart-count">0</span>
+</div>
+
+<div class="cart-modal" id="cart-modal">
+<h3>Your Cart</h3>
+<div id="cart-items"></div>
+<div class="total" id="total-price">Total: ₹0</div>
+<input type="text" id="customer-name" placeholder="Your Name">
+<input type="text" id="customer-phone" placeholder="Phone Number">
+<button onclick="sendOrder()">Send Order</button>
+</div>
+
+<a href="https://wa.me/919864696468" class="whatsapp">💬</a>
+
+<script>
+const products=[
+{img:"https://i.ibb.co/n8cRQyhb/IMG-20260228-212828.png",name:"Pedigree 1kg Adult",price:209},
+{img:"https://i.ibb.co/7tGtWgwr/IMG-20260228-212854.jpg",name:"Pedigree 3kg Adult",price:599},
+{img:"https://i.ibb.co/2733b0wP/IMG-20260228-213114.jpg",name:"Pro Starter 3kg",price:1399},
+{img:"https://i.ibb.co/TDr5h1KP/file-00000000e4f071fa8ff22fb227bea57a.png",name:"Puppy 1kg",price:229},
+{img:"https://i.ibb.co/4RqL39dH/file-00000000e7d471fa8d0e7ed8006838ce.png",name:"Drools 1kg",price:234},
+{img:"https://i.ibb.co/1JYWQDgs/file-00000000aee471faa75b969198f2643e.png",name:"Purepet Cat",price:189},
+{img:"https://i.ibb.co/KxNPVWFD/IMG-20260301-011737.jpg",name:"Whiskas Cat",price:409}
+];
+
+let cart=[];
+
+const list=document.getElementById("product-list");
+
+function renderProducts(){
+list.innerHTML="";
+products.forEach((p,index)=>{
+list.innerHTML+=`
+<div class="card">
+<img src="${p.img}">
+<h4>${p.name}</h4>
+<p>₹${p.price}</p>
+<div class="quantity-box">
+<button onclick="changeQty(${index},-1)">-</button>
+<span id="qty-${index}">1</span>
+<button onclick="changeQty(${index},1)">+</button>
+</div>
+<button class="add-btn" onclick="addToCart(${index})">Add to Cart</button>
+</div>`;
+});
+}
+renderProducts();
+
+function changeQty(index,change){
+let qtyEl=document.getElementById(`qty-${index}`);
+let qty=parseInt(qtyEl.innerText);
+qty+=change;
+if(qty<1) qty=1;
+qtyEl.innerText=qty;
+}
+
+function addToCart(index){
+let qty=parseInt(document.getElementById(`qty-${index}`).innerText);
+cart.push({...products[index],qty});
+updateCart();
+}
+
+function updateCart(){
+document.getElementById("cart-count").innerText=cart.length;
+let itemsHTML="";
+let total=0;
+
+cart.forEach((item,i)=>{
+total+=item.price*item.qty;
+itemsHTML+=`
+<div class="cart-item">
+<span>${item.name} x${item.qty} - ₹${item.price*item.qty}</span>
+<button class="remove-btn" onclick="removeItem(${i})">X</button>
+</div>`;
+});
+
+document.getElementById("cart-items").innerHTML=itemsHTML;
+document.getElementById("total-price").innerText="Total: ₹"+total;
+}
+
+function removeItem(index){
+cart.splice(index,1);
+updateCart();
+}
+
+function toggleCart(){
+let modal=document.getElementById("cart-modal");
+modal.style.display=modal.style.display==="block"?"none":"block";
+}
+
+function sendOrder(){
+let name=document.getElementById("customer-name").value;
+let phone=document.getElementById("customer-phone").value;
+
+let message="Order Details:%0A";
+cart.forEach(item=>{
+message+=`${item.name} x${item.qty} - ₹${item.price*item.qty}%0A`;
+});
+message+=document.getElementById("total-price").innerText;
+
+window.open(`https://wa.me/919864696468?text=${message}`);
+}
+
+/* Auto sliding carousel */
+setInterval(()=>{
+document.querySelector(".carousel").scrollBy({left:250,behavior:"smooth"});
+},3000);
+</script>
+
+</body>
+</html>
