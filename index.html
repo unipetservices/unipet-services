@@ -1,151 +1,159 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Unipet Services</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
 
 :root{
---primary-blue:#1678B5;
---light-blue:#3FA2E0;
---cream:#F5E6C8;
+--blue:#1678B5;
+--dark:#0F2A3F;
 --gold:#F4B400;
---dark-navy:#0F2A3F;
+--light:#f5f7fa;
 }
 
-body{background:var(--primary-blue);color:white;}
+body{background:var(--light);}
 
 header{
-position:fixed;top:0;width:100%;
-background:var(--dark-navy);
-display:flex;align-items:center;
-padding:12px 20px;z-index:1000;
+background:var(--blue);
+padding:15px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+position:sticky;
+top:0;
 }
 
-header img{height:45px;margin-right:10px;}
+header img{height:45px;}
 
-.search-box{flex:1;}
+.search-box{flex:1;margin:0 15px;}
 .search-box input{
-width:100%;padding:8px 15px;
-border-radius:25px;border:none;outline:none;
+width:100%;
+padding:10px;
+border:none;
+border-radius:6px;
 }
 
 .hero{
-height:100vh;
 background:url('https://i.ibb.co/0jsZWq4Q/file-00000000e6a871fa9d5151c5737d16df.png') center/cover no-repeat;
-display:flex;align-items:center;justify-content:center;text-align:center;
+height:250px;
+display:flex;
+align-items:center;
+justify-content:center;
+color:white;
 }
 
-.hero-content{
-background:rgba(15,42,63,0.9);
-padding:40px;border-radius:20px;
-}
-
-.hero h1{color:var(--cream);margin-bottom:15px;}
-.hero button{
-background:var(--gold);
-padding:12px 30px;border:none;border-radius:30px;
-font-weight:600;cursor:pointer;
+.hero h1{
+background:rgba(0,0,0,0.6);
+padding:15px 25px;
+border-radius:10px;
 }
 
 .products{
-padding:100px 20px 40px;
-background:var(--light-blue);
+padding:20px;
+max-width:1200px;
+margin:auto;
 }
 
-.carousel{
-display:flex;
-overflow-x:auto;
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
 gap:15px;
-scroll-behavior:smooth;
 }
 
 .card{
-min-width:220px;
-background:var(--dark-navy);
-border-radius:20px;
+background:white;
+border-radius:10px;
 padding:15px;
-text-align:center;
+box-shadow:0 4px 10px rgba(0,0,0,0.08);
 }
 
 .card img{
-width:100%;height:150px;
-object-fit:contain;margin-bottom:10px;
+width:100%;
+height:150px;
+object-fit:contain;
 }
 
-.quantity-box{
-display:flex;justify-content:center;align-items:center;margin:5px 0;
-}
+.price{font-weight:600;margin:5px 0;}
 
-.quantity-box button{
-background:var(--gold);
-border:none;padding:5px 10px;border-radius:5px;
-}
-
-.quantity-box span{margin:0 10px;}
-
-.card button.add-btn{
-background:var(--gold);
-border:none;padding:8px 15px;
-border-radius:20px;margin-top:8px;
-cursor:pointer;
-}
-
-.cart-icon{
-position:fixed;bottom:80px;right:20px;
-background:var(--gold);
-padding:15px;border-radius:50%;
-cursor:pointer;font-weight:bold;color:black;
-}
-
-.cart-count{
-position:absolute;top:-5px;right:-5px;
-background:red;color:white;
-font-size:12px;padding:2px 6px;border-radius:50%;
-}
-
-.cart-modal{
-position:fixed;bottom:0;left:0;width:100%;
-background:var(--dark-navy);
-padding:20px;display:none;
-border-radius:20px 20px 0 0;
-max-height:80vh;overflow-y:auto;
-}
-
-.cart-item{
-display:flex;justify-content:space-between;
+.quantity{
+display:flex;
+justify-content:center;
 margin:5px 0;
 }
 
-.remove-btn{
-background:red;color:white;border:none;
-padding:3px 8px;border-radius:5px;
+.quantity button{
+background:var(--blue);
+color:white;
+border:none;
+padding:5px 10px;
+}
+
+.add-btn{
+background:var(--gold);
+border:none;
+padding:8px;
+border-radius:6px;
+width:100%;
+font-weight:600;
+}
+
+.cart-btn{
+position:fixed;
+bottom:20px;
+right:20px;
+background:var(--blue);
+color:white;
+padding:15px;
+border-radius:50%;
 cursor:pointer;
 }
 
-.total{
-margin-top:10px;font-weight:bold;
+.cart-count{
+position:absolute;
+top:-5px;
+right:-5px;
+background:red;
+color:white;
+font-size:12px;
+padding:2px 6px;
+border-radius:50%;
 }
 
-.cart-modal input{
-width:100%;margin:5px 0;
-padding:8px;border-radius:10px;border:none;
+.cart-panel{
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+background:white;
+padding:20px;
+display:none;
+max-height:80vh;
+overflow:auto;
+box-shadow:0 -5px 20px rgba(0,0,0,0.2);
 }
 
-.cart-modal button{
-background:var(--gold);
-border:none;padding:10px;
-width:100%;border-radius:20px;margin-top:10px;
+.cart-item{
+display:flex;
+justify-content:space-between;
+margin:5px 0;
 }
+
+.total{font-weight:bold;margin-top:10px;}
 
 .whatsapp{
-position:fixed;bottom:20px;right:20px;
-background:#25D366;color:white;
-padding:15px;border-radius:50%;
+position:fixed;
+bottom:20px;
+left:20px;
+background:#25D366;
+color:white;
+padding:15px;
+border-radius:50%;
 text-decoration:none;
 }
 </style>
@@ -161,36 +169,43 @@ text-decoration:none;
 </header>
 
 <section class="hero">
-<div class="hero-content">
-<h1>Fast Pet Food Delivery, Best Prices</h1>
-<button onclick="document.querySelector('.products').scrollIntoView({behavior:'smooth'})">
-Shop Now
-</button>
-</div>
+<h1>Fast Pet Food Delivery • Best Prices</h1>
 </section>
 
 <section class="products">
-<h2 style="text-align:center;margin-bottom:15px;color:#F5E6C8;">Our Products</h2>
-<div class="carousel" id="product-list"></div>
+<h2>Our Products</h2>
+<div class="grid" id="product-list"></div>
 </section>
 
-<div class="cart-icon" onclick="toggleCart()">
+<div class="cart-btn" onclick="toggleCart()">
 🛒
 <span class="cart-count" id="cart-count">0</span>
 </div>
 
-<div class="cart-modal" id="cart-modal">
+<div class="cart-panel" id="cart-panel">
 <h3>Your Cart</h3>
 <div id="cart-items"></div>
-<div class="total" id="total-price">Total: ₹0</div>
-<input type="text" id="customer-name" placeholder="Your Name">
-<input type="text" id="customer-phone" placeholder="Phone Number">
-<button onclick="sendOrder()">Send Order</button>
+<div class="total" id="total">Total: ₹0</div>
+
+<input type="text" id="name" placeholder="Your Name" style="width:100%;margin-top:10px;padding:8px;">
+<input type="text" id="phone" placeholder="Phone Number" style="width:100%;margin-top:5px;padding:8px;">
+<input type="text" id="address" placeholder="Full Delivery Address" style="width:100%;margin-top:5px;padding:8px;">
+
+<button onclick="getLocation()" style="margin-top:5px;width:100%;padding:8px;background:#0F2A3F;color:white;border:none;border-radius:6px;">
+Use My Current Location
+</button>
+
+<button onclick="orderNow()" style="margin-top:10px;width:100%;padding:10px;background:#1678B5;color:white;border:none;border-radius:6px;">
+Place Order
+</button>
 </div>
 
 <a href="https://wa.me/919864696468" class="whatsapp">💬</a>
 
+<script src="https://cdn.emailjs.com/dist/email.min.js"></script>
 <script>
+emailjs.init("YOUR_PUBLIC_KEY");
+
 const products=[
 {img:"https://i.ibb.co/n8cRQyhb/IMG-20260228-212828.png",name:"Pedigree 1kg Adult",price:209},
 {img:"https://i.ibb.co/7tGtWgwr/IMG-20260228-212854.jpg",name:"Pedigree 3kg Adult",price:599},
@@ -202,87 +217,111 @@ const products=[
 ];
 
 let cart=[];
+let userLocation="Location not shared";
 
-const list=document.getElementById("product-list");
-
-function renderProducts(){
+function renderProducts(filter=""){
+let list=document.getElementById("product-list");
 list.innerHTML="";
-products.forEach((p,index)=>{
+products
+.filter(p=>p.name.toLowerCase().includes(filter.toLowerCase()))
+.forEach((p,i)=>{
 list.innerHTML+=`
 <div class="card">
 <img src="${p.img}">
 <h4>${p.name}</h4>
-<p>₹${p.price}</p>
-<div class="quantity-box">
-<button onclick="changeQty(${index},-1)">-</button>
-<span id="qty-${index}">1</span>
-<button onclick="changeQty(${index},1)">+</button>
+<div class="price">₹${p.price}</div>
+<div class="quantity">
+<button onclick="changeQty(${i},-1)">-</button>
+<span id="qty-${i}">1</span>
+<button onclick="changeQty(${i},1)">+</button>
 </div>
-<button class="add-btn" onclick="addToCart(${index})">Add to Cart</button>
+<button class="add-btn" onclick="addToCart(${i})">Add to Cart</button>
 </div>`;
 });
 }
 renderProducts();
 
-function changeQty(index,change){
-let qtyEl=document.getElementById(`qty-${index}`);
-let qty=parseInt(qtyEl.innerText);
-qty+=change;
-if(qty<1) qty=1;
-qtyEl.innerText=qty;
+document.getElementById("search").addEventListener("input",e=>{
+renderProducts(e.target.value);
+});
+
+function changeQty(i,val){
+let el=document.getElementById("qty-"+i);
+let q=parseInt(el.innerText)+val;
+if(q<1) q=1;
+el.innerText=q;
 }
 
-function addToCart(index){
-let qty=parseInt(document.getElementById(`qty-${index}`).innerText);
-cart.push({...products[index],qty});
+function addToCart(i){
+let qty=parseInt(document.getElementById("qty-"+i).innerText);
+cart.push({...products[i],qty});
 updateCart();
 }
 
 function updateCart(){
 document.getElementById("cart-count").innerText=cart.length;
-let itemsHTML="";
 let total=0;
-
-cart.forEach((item,i)=>{
+let html="";
+cart.forEach(item=>{
 total+=item.price*item.qty;
-itemsHTML+=`
-<div class="cart-item">
-<span>${item.name} x${item.qty} - ₹${item.price*item.qty}</span>
-<button class="remove-btn" onclick="removeItem(${i})">X</button>
+html+=`<div class="cart-item">
+<span>${item.name} x${item.qty}</span>
+<span>₹${item.price*item.qty}</span>
 </div>`;
 });
-
-document.getElementById("cart-items").innerHTML=itemsHTML;
-document.getElementById("total-price").innerText="Total: ₹"+total;
-}
-
-function removeItem(index){
-cart.splice(index,1);
-updateCart();
+document.getElementById("cart-items").innerHTML=html;
+document.getElementById("total").innerText="Total: ₹"+total;
 }
 
 function toggleCart(){
-let modal=document.getElementById("cart-modal");
-modal.style.display=modal.style.display==="block"?"none":"block";
+let panel=document.getElementById("cart-panel");
+panel.style.display=panel.style.display==="block"?"none":"block";
 }
 
-function sendOrder(){
-let name=document.getElementById("customer-name").value;
-let phone=document.getElementById("customer-phone").value;
-
-let message="Order Details:%0A";
-cart.forEach(item=>{
-message+=`${item.name} x${item.qty} - ₹${item.price*item.qty}%0A`;
+function getLocation(){
+if(navigator.geolocation){
+navigator.geolocation.getCurrentPosition(pos=>{
+userLocation=`https://www.google.com/maps?q=${pos.coords.latitude},${pos.coords.longitude}`;
+alert("Location captured!");
 });
-message+=document.getElementById("total-price").innerText;
-
-window.open(`https://wa.me/919864696468?text=${message}`);
+}
 }
 
-/* Auto sliding carousel */
-setInterval(()=>{
-document.querySelector(".carousel").scrollBy({left:250,behavior:"smooth"});
-},3000);
+function orderNow(){
+let name=document.getElementById("name").value;
+let phone=document.getElementById("phone").value;
+let address=document.getElementById("address").value;
+
+if(!name||!phone||!address){
+alert("Please fill all details");
+return;
+}
+
+let msg="🐾 New Order%0A";
+msg+=`Name: ${name}%0A`;
+msg+=`Phone: ${phone}%0A`;
+msg+=`Address: ${address}%0A`;
+msg+=`Location: ${userLocation}%0A%0A`;
+
+let total=0;
+cart.forEach(item=>{
+let t=item.price*item.qty;
+total+=t;
+msg+=`${item.name} x${item.qty} - ₹${t}%0A`;
+});
+
+msg+=`%0ATotal: ₹${total}`;
+
+window.open(`https://wa.me/919864696468?text=${msg}`);
+
+emailjs.send("YOUR_SERVICE_ID","YOUR_TEMPLATE_ID",{
+customer_name:name,
+customer_phone:phone,
+customer_address:address,
+order_details:msg,
+to_email:"askunipet@gmail.com"
+});
+}
 </script>
 
 </body>
