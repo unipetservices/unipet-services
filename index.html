@@ -1,11 +1,13 @@
-
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Unipet Services</title>
+
+<link rel="icon" type="image/png" href="https://i.ibb.co/0dDZS5Q/Cream-Blue-Minimalist-Pet-Shop-and-Care-Logo-1.png">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
@@ -29,7 +31,10 @@ position:sticky;
 top:0;
 }
 
-header img{height:45px;}
+header img{
+height:45px;
+filter:brightness(0) invert(1);
+}
 
 .search-box{flex:1;margin:0 15px;}
 .search-box input{
@@ -173,7 +178,6 @@ text-decoration:none;
 </section>
 
 <section class="products">
-<h2>Our Products</h2>
 <div class="grid" id="product-list"></div>
 </section>
 
@@ -202,7 +206,6 @@ Place Order
 
 <a href="https://wa.me/919864696468" class="whatsapp">💬</a>
 
-<script src="https://cdn.emailjs.com/dist/email.min.js"></script>
 <script>
 emailjs.init("YOUR_PUBLIC_KEY");
 
@@ -223,7 +226,7 @@ function renderProducts(filter=""){
 let list=document.getElementById("product-list");
 list.innerHTML="";
 products
-.filter(p=>p.name.toLowerCase().includes(filter.toLowerCase()))
+.filter(p=>p.name.toLowerCase().includes(filter.trim().toLowerCase()))
 .forEach((p,i)=>{
 list.innerHTML+=`
 <div class="card">
@@ -288,12 +291,23 @@ alert("Location captured!");
 }
 
 function orderNow(){
-let name=document.getElementById("name").value;
-let phone=document.getElementById("phone").value;
-let address=document.getElementById("address").value;
+
+if(cart.length===0){
+alert("Your cart is empty!");
+return;
+}
+
+let name=document.getElementById("name").value.trim();
+let phone=document.getElementById("phone").value.trim();
+let address=document.getElementById("address").value.trim();
 
 if(!name||!phone||!address){
 alert("Please fill all details");
+return;
+}
+
+if(!/^[6-9]\d{9}$/.test(phone)){
+alert("Please enter valid 10 digit Indian phone number");
 return;
 }
 
@@ -321,6 +335,11 @@ customer_address:address,
 order_details:msg,
 to_email:"askunipet@gmail.com"
 });
+
+alert("Order Placed Successfully!");
+cart=[];
+updateCart();
+toggleCart();
 }
 </script>
 
