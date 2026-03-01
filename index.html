@@ -13,29 +13,26 @@
 *{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif}
 body{background:#f1f3f6}
 
-/* ANNOUNCEMENT BAR */
+/* Announcement */
 .announcement{
 background:#ff9f00;
 color:white;
-font-size:14px;
 padding:6px 0;
 overflow:hidden;
 white-space:nowrap;
-position:relative;
+font-size:14px;
 }
-
 .announcement span{
 display:inline-block;
 padding-left:100%;
 animation:scroll 15s linear infinite;
 }
-
 @keyframes scroll{
-0%{transform:translateX(0);}
-100%{transform:translateX(-100%);}
+0%{transform:translateX(0)}
+100%{transform:translateX(-100%)}
 }
 
-/* HEADER */
+/* Header */
 header{
 background:#2874f0;
 padding:10px 20px;
@@ -46,100 +43,47 @@ color:white;
 position:sticky;
 top:0;
 z-index:1000;
-transition:0.3s;
+transition:.3s;
 }
-
-header.shadow{
-box-shadow:0 4px 12px rgba(0,0,0,0.15);
-}
-
-.logo{
-display:flex;
-align-items:center;
-gap:10px;
-font-weight:600;
-font-size:18px;
-}
-
-.logo img{
-height:38px;
-background:white;
-padding:4px;
-border-radius:6px;
-}
-
+header.shadow{box-shadow:0 4px 12px rgba(0,0,0,.2)}
+.logo{display:flex;align-items:center;gap:10px;font-weight:600}
+.logo img{height:38px;background:white;padding:4px;border-radius:6px}
 .search-box{flex:1}
-.search-box input{
-width:100%;
-padding:8px;
-border:none;
-border-radius:4px;
-}
+.search-box input{width:100%;padding:8px;border:none;border-radius:4px}
 
-/* HERO */
+/* Hero */
 .hero{
 margin:15px;
-height:170px;
+height:160px;
 background:url('https://i.ibb.co/0jsZWq4Q/file-00000000e6a871fa9d5151c5737d16df.png') center/cover no-repeat;
 border-radius:8px;
 }
 
-/* CATEGORY */
-.categories{
-display:flex;
-gap:10px;
-padding:10px 15px;
-}
-.categories button{
-padding:6px 12px;
-border:none;
-border-radius:4px;
-cursor:pointer;
-background:white;
-}
-.categories .active{
-background:#2874f0;
-color:white;
-}
-
-/* PRODUCTS */
+/* Products */
 .products{
 display:grid;
 grid-template-columns:repeat(2,1fr);
 gap:15px;
 padding:15px;
 }
-
 .card{
 background:white;
 padding:12px;
 border-radius:8px;
-box-shadow:0 2px 8px rgba(0,0,0,0.08);
-display:flex;
-flex-direction:column;
+box-shadow:0 2px 8px rgba(0,0,0,.08);
 }
-
-.card img{
-height:120px;
-object-fit:contain;
-margin-bottom:8px;
-}
-
-.price{font-weight:600;margin:5px 0}
-
-.quantity{
-display:flex;
-gap:8px;
-align-items:center;
-}
-.quantity button{
-padding:3px 8px;
-border:none;
-background:#2874f0;
+.card img{height:120px;object-fit:contain;width:100%}
+.price{font-weight:600}
+.mrp{text-decoration:line-through;color:gray;margin-left:5px}
+.discount{color:green;margin-left:5px;font-size:13px}
+.badge{
+position:absolute;
+background:green;
 color:white;
-cursor:pointer;
+font-size:11px;
+padding:2px 6px;
+border-radius:4px;
 }
-
 .add-btn{
 margin-top:6px;
 background:#ff9f00;
@@ -151,7 +95,7 @@ cursor:pointer;
 border-radius:4px;
 }
 
-/* CART BUTTON */
+/* Cart */
 .cart-btn{
 position:fixed;
 bottom:20px;
@@ -162,7 +106,6 @@ padding:14px;
 border-radius:50%;
 cursor:pointer;
 }
-
 .cart-count{
 position:absolute;
 top:-5px;
@@ -173,8 +116,6 @@ padding:2px 6px;
 font-size:12px;
 border-radius:50%;
 }
-
-/* CART PANEL */
 .cart-panel{
 position:fixed;
 right:-350px;
@@ -183,75 +124,46 @@ width:350px;
 height:100%;
 background:white;
 padding:20px;
-transition:0.3s;
+transition:.3s;
 overflow:auto;
-box-shadow:-3px 0 8px rgba(0,0,0,0.1);
 z-index:2000;
+box-shadow:-3px 0 10px rgba(0,0,0,.15);
 }
-
 .cart-panel.active{right:0}
-
 .back-btn{
-background:#ddd;
-border:none;
-padding:6px;
-margin-bottom:10px;
-cursor:pointer;
-width:100%;
+background:#ddd;border:none;padding:6px;width:100%;cursor:pointer
 }
-
 .cart-item{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin:6px 0;
-font-size:14px;
+display:flex;justify-content:space-between;margin:6px 0;font-size:14px
 }
-
-.remove{
-background:red;
-color:white;
-border:none;
-padding:2px 6px;
-cursor:pointer;
-font-size:11px;
-}
-
-.total{margin-top:8px;font-weight:600}
-
+.total{font-weight:600;margin-top:8px}
 input,select{
-width:100%;
-margin-top:8px;
-padding:6px;
+width:100%;margin-top:8px;padding:6px
 }
-
 .place{
-margin-top:10px;
-background:#2874f0;
-color:white;
-border:none;
-padding:8px;
-width:100%;
-cursor:pointer;
+margin-top:10px;background:#2874f0;color:white;border:none;padding:8px;width:100%;cursor:pointer
 }
 
-.location-btn{
-margin-top:6px;
-background:#0F2A3F;
-color:white;
-border:none;
-padding:6px;
+/* Product Detail */
+.detail{
+position:fixed;
+top:0;
+left:0;
 width:100%;
-cursor:pointer;
+height:100%;
+background:white;
+z-index:3000;
+padding:20px;
+overflow:auto;
+display:none;
 }
 </style>
 </head>
 
 <body>
 
-<!-- Announcement -->
 <div class="announcement">
-<span>🚚 Free Delivery Above ₹599 & On All Prepaid Orders | COD Orders ₹20 Extra Charge</span>
+<span>🚚 Free Delivery Above ₹599 & On All Prepaid Orders | COD ₹20 Extra Charge</span>
 </div>
 
 <header id="header">
@@ -259,19 +171,12 @@ cursor:pointer;
 <img src="https://i.ibb.co/0dDZS5Q/Cream-Blue-Minimalist-Pet-Shop-and-Care-Logo-1.png">
 <span>Unipet Services</span>
 </div>
-
 <div class="search-box">
 <input type="text" id="search" placeholder="Search pet food...">
 </div>
 </header>
 
 <div class="hero"></div>
-
-<div class="categories">
-<button class="active" onclick="setCategory('all',this)">All</button>
-<button onclick="setCategory('dog',this)">Dog</button>
-<button onclick="setCategory('cat',this)">Cat</button>
-</div>
 
 <div class="products" id="product-list"></div>
 
@@ -280,7 +185,7 @@ cursor:pointer;
 </div>
 
 <div class="cart-panel" id="cartPanel">
-<button class="back-btn" onclick="toggleCart()">⬅ Back to Home</button>
+<button class="back-btn" onclick="toggleCart()">⬅ Back</button>
 <h3>Your Cart</h3>
 <div id="cartItems"></div>
 
@@ -289,26 +194,110 @@ cursor:pointer;
 <input type="text" id="address" placeholder="Full Address">
 
 <select id="payment" onchange="updateCart()">
-<option value="COD">Cash on Delivery (₹20 Extra)</option>
-<option value="Prepaid">Online Prepaid (Free Delivery)</option>
+<option value="COD">Cash on Delivery</option>
+<option value="Prepaid">Online Prepaid</option>
 </select>
 
-<button class="location-btn" onclick="getLocation()">Use Current Location</button>
 <button class="place" onclick="placeOrder()">Place Order</button>
 </div>
+
+<div class="detail" id="detailView"></div>
 
 <script>
 emailjs.init("B1bbMrGsxv1o4hUd5");
 
-/* PRODUCTS */
+/* Sticky Shadow */
+window.addEventListener("scroll",()=>{
+document.getElementById("header").classList.toggle("shadow",window.scrollY>10);
+});
+
+/* JSON Product Data */
 const products=[
-{id:1,name:"Pedigree 1kg Adult",price:209,category:"dog",img:"https://i.ibb.co/n8cRQyhb/IMG-20260228-212828.png"},
-{id:2,name:"Whiskas Cat 1kg",price:409,category:"cat",img:"https://i.ibb.co/KxNPVWFD/IMG-20260301-011737.jpg"}
+{id:1,name:"Pedigree 1 kg adult Chicken & Vegetable",price:209,mrp:250,stock:true,img:"https://i.ibb.co/n8cRQyhb/IMG-20260228-212828.png",desc:"Complete nutrition for adult dogs."},
+{id:2,name:"Pedigree 3 kg adult Chicken & Vegetable",price:599,mrp:699,stock:true,img:"https://i.ibb.co/7tGtWgwr/IMG-20260228-212854.jpg",desc:"Balanced adult dog diet."},
+{id:3,name:"Pedigree pro starter 3kg Mother & Pup",price:1399,mrp:1600,stock:true,img:"https://i.ibb.co/2733b0wP/IMG-20260228-213114.jpg",desc:"Nutrition for mother & puppies."},
+{id:4,name:"Pedigree puppy 1kg Chicken & Milk",price:229,mrp:270,stock:true,img:"https://i.ibb.co/TDr5h1KP/file-00000000e4f071fa8ff22fb227bea57a.png",desc:"Healthy puppy growth."},
+{id:5,name:"Drools adult 1 kg Chicken & Egg",price:234,mrp:280,stock:false,img:"https://i.ibb.co/4RqL39dH/file-00000000e7d471fa8d0e7ed8006838ce.png",desc:"High protein dog food."},
+{id:6,name:"Purepet adult cat food Tuna & Salmon",price:189,mrp:220,stock:true,img:"https://i.ibb.co/1JYWQDgs/file-00000000aee471faa75b969198f2643e.png",desc:"Tasty tuna & salmon."},
+{id:7,name:"Whiskas adult cat food Ocean Fish Flavour",price:409,mrp:480,stock:true,img:"https://i.ibb.co/KxNPVWFD/IMG-20260301-011737.jpg",desc:"Ocean fish flavour."}
 ];
 
 let cart=JSON.parse(localStorage.getItem("cart"))||[];
-let userLocation=localStorage.getItem("location")||"";
-let currentCategory="all";
+
+function renderProducts(){
+let container=document.getElementById("product-list");
+container.innerHTML="";
+products.forEach(p=>{
+let discount=Math.round(((p.mrp-p.price)/p.mrp)*100);
+container.innerHTML+=`
+<div class="card">
+<img src="${p.img}" onclick="openDetail(${p.id})">
+<div>${p.name}</div>
+<div>
+<span class="price">₹${p.price}</span>
+<span class="mrp">₹${p.mrp}</span>
+<span class="discount">${discount}% off</span>
+</div>
+${p.stock?
+`<button class="add-btn" onclick="addToCart(${p.id})">Add to Cart</button>`:
+`<button class="add-btn" style="background:gray">Out of Stock</button>`}
+</div>
+`;
+});
+}
+
+function openDetail(id){
+let p=products.find(x=>x.id===id);
+let d=document.getElementById("detailView");
+d.style.display="block";
+d.innerHTML=`
+<button onclick="closeDetail()">⬅ Back</button>
+<h2>${p.name}</h2>
+<img src="${p.img}" style="width:100%;max-width:300px">
+<p>${p.desc}</p>
+<p><b>Price:</b> ₹${p.price}</p>
+<p><b>MRP:</b> <span style="text-decoration:line-through">₹${p.mrp}</span></p>
+`;
+}
+function closeDetail(){document.getElementById("detailView").style.display="none"}
+
+function addToCart(id){
+let p=products.find(x=>x.id===id);
+if(!p.stock)return;
+let e=cart.find(i=>i.id===id);
+if(e)e.qty+=1;
+else cart.push({...p,qty:1});
+localStorage.setItem("cart",JSON.stringify(cart));
+updateCart();
+}
+
+function toggleCart(){
+document.getElementById("cartPanel").classList.toggle("active");
+}
+
+function updateCart(){
+let html="",total=0,qty=0;
+cart.forEach(i=>{
+total+=i.price*i.qty;
+qty+=i.qty;
+html+=`<div class="cart-item">
+<span>${i.name} x${i.qty}</span>
+<span>₹${i.price*i.qty}</span>
+</div>`;
+});
+let payment=document.getElementById("payment")?.value||"COD";
+let delivery=(payment==="Prepaid"||total>=599)?0:40;
+let cod=(payment==="COD")?20:0;
+let finalTotal=total+delivery+cod;
+
+html+=`<div class="total">Subtotal: ₹${total}</div>`;
+html+=`<div class="total">Delivery: ₹${delivery}</div>`;
+html+=`<div class="total">COD Charge: ₹${cod}</div>`;
+html+=`<div class="total">Total: ₹${finalTotal}</div>`;
+
+document.getElementById("cartItems").innerHTML=html;
+document.getElementById("cart-count").innerText=qty;
+}
 
 function generateOrderID(){
 let d=new Date();
@@ -316,7 +305,44 @@ return "UNI"+d.getFullYear()+String(d.getMonth()+1).padStart(2,'0')+
 String(d.getDate()).padStart(2,'0')+"-"+Math.floor(1000+Math.random()*9000);
 }
 
-function saveCart(){localStorage.setItem("cart",JSON.stringify(cart));}
+function placeOrder(){
+if(cart.length===0){alert("Cart empty");return;}
+let name=document.getElementById("name").value.trim();
+let phone=document.getElementById("phone").value.trim();
+let address=document.getElementById("address").value.trim();
+let payment=document.getElementById("payment").value;
+if(!name||!phone||!address){alert("Fill details");return;}
+if(!/^[6-9]\d{9}$/.test(phone)){alert("Invalid number");return;}
 
-function renderProducts(){
-let container=document.getElementById
+let orderID=generateOrderID();
+let total=0;cart.forEach(i=>total+=i.price*i.qty);
+let delivery=(payment==="Prepaid"||total>=599)?0:40;
+let cod=(payment==="COD")?20:0;
+let finalTotal=total+delivery+cod;
+
+let text=`New Order\nOrder ID: ${orderID}\nName: ${name}\nPhone: ${phone}\nAddress: ${address}\nPayment: ${payment}\n\n`;
+cart.forEach(i=>{text+=`${i.name} x${i.qty} = ₹${i.price*i.qty}\n`});
+text+=`\nDelivery: ₹${delivery}\nCOD: ₹${cod}\nTotal: ₹${finalTotal}`;
+
+window.open(`https://wa.me/919864696468?text=${encodeURIComponent(text)}`);
+
+emailjs.send("service_ojwxt5r","template_173h3jh",{
+order_id:orderID,
+customer_name:name,
+customer_phone:phone,
+customer_address:address,
+order_total:finalTotal
+});
+
+alert("Order Placed!\nOrder ID: "+orderID);
+
+cart=[];localStorage.removeItem("cart");
+updateCart();toggleCart();
+}
+
+renderProducts();
+updateCart();
+</script>
+
+</body>
+</html>
