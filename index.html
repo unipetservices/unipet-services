@@ -46,6 +46,14 @@ background:white;
 padding:12px;
 border-radius:6px;
 box-shadow:0 2px 6px rgba(0,0,0,0.08);
+display:flex;
+flex-direction:column;
+}
+
+.card img{
+height:120px;
+object-fit:contain;
+margin-bottom:8px;
 }
 
 .price{font-weight:600;margin:5px 0}
@@ -105,6 +113,7 @@ display:flex;
 justify-content:space-between;
 align-items:center;
 margin:6px 0;
+font-size:14px;
 }
 
 .remove{
@@ -187,12 +196,12 @@ cursor:pointer;
 <script>
 emailjs.init("B1bbMrGsxv1o4hUd5");
 
-/* PRODUCTS */
+/* PRODUCTS WITH IMAGES */
 const products=[
-{id:1,name:"Pedigree 1kg Adult",price:209,category:"dog"},
-{id:2,name:"Pedigree 3kg Adult",price:599,category:"dog"},
-{id:3,name:"Purepet Cat 1kg",price:189,category:"cat"},
-{id:4,name:"Whiskas Cat 1kg",price:409,category:"cat"}
+{id:1,name:"Pedigree 1kg Adult",price:209,category:"dog",img:"https://i.ibb.co/n8cRQyhb/IMG-20260228-212828.png"},
+{id:2,name:"Pedigree 3kg Adult",price:599,category:"dog",img:"https://i.ibb.co/7tGtWgwr/IMG-20260228-212854.jpg"},
+{id:3,name:"Purepet Cat 1kg",price:189,category:"cat",img:"https://i.ibb.co/1JYWQDgs/file-00000000aee471faa75b969198f2643e.png"},
+{id:4,name:"Whiskas Cat 1kg",price:409,category:"cat",img:"https://i.ibb.co/KxNPVWFD/IMG-20260301-011737.jpg"}
 ];
 
 let cart=JSON.parse(localStorage.getItem("cart"))||[];
@@ -210,7 +219,7 @@ function saveCart(){
 localStorage.setItem("cart",JSON.stringify(cart));
 }
 
-/* RENDER PRODUCTS */
+/* RENDER */
 function renderProducts(){
 let container=document.getElementById("product-list");
 container.innerHTML="";
@@ -222,6 +231,7 @@ products
 .forEach(p=>{
 container.innerHTML+=`
 <div class="card">
+<img src="${p.img}">
 <div>${p.name}</div>
 <div class="price">₹${p.price}</div>
 <div class="quantity">
@@ -254,10 +264,8 @@ function addToCart(id){
 let qty=parseInt(document.getElementById("qty-"+id).innerText);
 let product=products.find(p=>p.id===id);
 let existing=cart.find(i=>i.id===id);
-
 if(existing){existing.qty+=qty;}
 else{cart.push({...product,qty});}
-
 updateCart();
 saveCart();
 }
@@ -270,8 +278,7 @@ saveCart();
 
 function updateCart(){
 let html="";
-let total=0;
-let totalQty=0;
+let total=0,totalQty=0;
 
 cart.forEach(i=>{
 let t=i.price*i.qty;
