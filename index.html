@@ -5,12 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Unipet Services</title>
 
-<link rel="icon" href="https://i.ibb.co/0dDZS5Q/Cream-Blue-Minimalist-Pet-Shop-and-Care-Logo-1.png">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif}
 body{background:#f1f3f6}
 
 /* HEADER */
@@ -20,81 +19,46 @@ padding:10px 20px;
 display:flex;
 align-items:center;
 gap:20px;
-position:sticky;
-top:0;
-z-index:1000;
 color:white;
 }
 
-.logo{display:flex;align-items:center;gap:8px;font-weight:600;font-size:18px}
-.logo img{height:35px;background:white;padding:4px;border-radius:6px}
-
+.logo{font-weight:600;font-size:18px}
 .search-box{flex:1}
-.search-box input{
-width:100%;padding:10px;border:none;border-radius:4px;outline:none
-}
+.search-box input{width:100%;padding:8px;border:none;border-radius:4px}
 
 /* CATEGORY */
-.categories{
-display:flex;
-gap:10px;
-padding:10px 15px;
-}
+.categories{display:flex;gap:10px;padding:10px}
 .categories button{
-padding:6px 12px;
-border:none;
-background:white;
-cursor:pointer;
-border-radius:4px;
-font-size:13px;
+padding:6px 12px;border:none;border-radius:4px;cursor:pointer
 }
-.categories button.active{
-background:#2874f0;
-color:white;
-}
-
-/* HERO */
-.hero{
-margin:15px;
-height:160px;
-background:url('https://i.ibb.co/0jsZWq4Q/file-00000000e6a871fa9d5151c5737d16df.png') center/cover no-repeat;
-border-radius:8px;
-}
+.categories .active{background:#2874f0;color:white}
 
 /* PRODUCTS */
 .products{
-padding:15px;
 display:grid;
 grid-template-columns:repeat(2,1fr);
 gap:15px;
+padding:15px;
 }
 
 .card{
 background:white;
 padding:12px;
 border-radius:6px;
-box-shadow:0 2px 8px rgba(0,0,0,0.08);
-display:flex;
-flex-direction:column;
+box-shadow:0 2px 6px rgba(0,0,0,0.08);
 }
 
-.card h4{font-size:14px;min-height:35px}
-.price{font-weight:600;margin:5px 0;color:#212121}
-
-.quantity{
-display:flex;
-align-items:center;
-justify-content:center;
-gap:10px;
-margin:6px 0;
-}
-.quantity button{
-background:#2874f0;color:white;border:none;padding:4px 8px;cursor:pointer
-}
-
+.price{font-weight:600;margin:5px 0}
+.quantity{display:flex;gap:8px;align-items:center}
+.quantity button{padding:3px 8px;border:none;background:#2874f0;color:white}
 .add-btn{
-background:#ff9f00;color:white;border:none;padding:8px;border-radius:4px;
-cursor:pointer;font-weight:500;
+margin-top:6px;
+background:#ff9f00;
+color:white;
+border:none;
+padding:6px;
+width:100%;
+cursor:pointer;
 }
 
 /* CART BUTTON */
@@ -107,7 +71,6 @@ color:white;
 padding:14px;
 border-radius:50%;
 cursor:pointer;
-font-size:18px;
 }
 
 .cart-count{
@@ -116,23 +79,23 @@ top:-5px;
 right:-5px;
 background:red;
 color:white;
-font-size:12px;
 padding:2px 6px;
+font-size:12px;
 border-radius:50%;
 }
 
 /* CART PANEL */
 .cart-panel{
 position:fixed;
-right:-100%;
+right:-350px;
 top:0;
 width:350px;
 height:100%;
 background:white;
 padding:20px;
-transition:0.4s;
+transition:0.3s;
 overflow:auto;
-box-shadow:-3px 0 10px rgba(0,0,0,0.1);
+box-shadow:-3px 0 8px rgba(0,0,0,0.1);
 }
 
 .cart-panel.active{right:0}
@@ -142,7 +105,6 @@ display:flex;
 justify-content:space-between;
 align-items:center;
 margin:6px 0;
-font-size:14px;
 }
 
 .remove{
@@ -154,44 +116,32 @@ cursor:pointer;
 font-size:11px;
 }
 
-.total{margin-top:6px;font-weight:600}
+.total{margin-top:8px;font-weight:600}
 
 input,select{
 width:100%;
 margin-top:8px;
-padding:8px;
+padding:6px;
 }
 
-button.place{
+.place{
 margin-top:10px;
-width:100%;
-padding:10px;
 background:#2874f0;
 color:white;
 border:none;
+padding:8px;
+width:100%;
 cursor:pointer;
 }
 
-button.location-btn{
-margin-top:8px;
-width:100%;
-padding:8px;
+.location-btn{
+margin-top:6px;
 background:#0F2A3F;
 color:white;
 border:none;
+padding:6px;
+width:100%;
 cursor:pointer;
-}
-
-.whatsapp{
-position:fixed;
-bottom:20px;
-left:20px;
-background:#25D366;
-color:white;
-padding:14px;
-border-radius:50%;
-text-decoration:none;
-font-size:18px;
 }
 </style>
 </head>
@@ -199,28 +149,22 @@ font-size:18px;
 <body>
 
 <header>
-<div class="logo">
-<img src="https://i.ibb.co/0dDZS5Q/Cream-Blue-Minimalist-Pet-Shop-and-Care-Logo-1.png">
-Unipet Services
-</div>
-
+<div class="logo">Unipet Services</div>
 <div class="search-box">
 <input type="text" id="search" placeholder="Search pet food...">
 </div>
 </header>
 
 <div class="categories">
-<button onclick="filterCategory('all',this)" class="active">All</button>
-<button onclick="filterCategory('dog',this)">Dog</button>
-<button onclick="filterCategory('cat',this)">Cat</button>
+<button class="active" onclick="setCategory('all',this)">All</button>
+<button onclick="setCategory('dog',this)">Dog</button>
+<button onclick="setCategory('cat',this)">Cat</button>
 </div>
 
-<div class="hero"></div>
 <div class="products" id="product-list"></div>
 
 <div class="cart-btn" onclick="toggleCart()">
-🛒
-<span class="cart-count" id="cart-count">0</span>
+🛒 <span class="cart-count" id="cart-count">0</span>
 </div>
 
 <div class="cart-panel" id="cartPanel">
@@ -240,107 +184,108 @@ Unipet Services
 <button class="place" onclick="placeOrder()">Place Order</button>
 </div>
 
-<a href="https://wa.me/919864696468" class="whatsapp">💬</a>
-
 <script>
 emailjs.init("B1bbMrGsxv1o4hUd5");
 
 /* PRODUCTS */
 const products=[
-{name:"Pedigree 1kg Adult",price:209,category:"dog"},
-{name:"Pedigree 3kg Adult",price:599,category:"dog"},
-{name:"Pro Starter 3kg",price:1399,category:"dog"},
-{name:"Puppy 1kg",price:229,category:"dog"},
-{name:"Drools 1kg",price:234,category:"dog"},
-{name:"Purepet Cat",price:189,category:"cat"},
-{name:"Whiskas Cat",price:409,category:"cat"}
+{id:1,name:"Pedigree 1kg Adult",price:209,category:"dog"},
+{id:2,name:"Pedigree 3kg Adult",price:599,category:"dog"},
+{id:3,name:"Purepet Cat 1kg",price:189,category:"cat"},
+{id:4,name:"Whiskas Cat 1kg",price:409,category:"cat"}
 ];
 
 let cart=JSON.parse(localStorage.getItem("cart"))||[];
 let userLocation=localStorage.getItem("location")||"";
+let currentCategory="all";
 
-/* ORDER ID GENERATOR */
+/* ORDER ID */
 function generateOrderID(){
-let date=new Date();
-let y=date.getFullYear();
-let m=String(date.getMonth()+1).padStart(2,'0');
-let d=String(date.getDate()).padStart(2,'0');
-let r=Math.floor(1000+Math.random()*9000);
-return `UNI${y}${m}${d}-${r}`;
+let d=new Date();
+return "UNI"+d.getFullYear()+String(d.getMonth()+1).padStart(2,'0')+
+String(d.getDate()).padStart(2,'0')+"-"+Math.floor(1000+Math.random()*9000);
 }
 
 function saveCart(){
 localStorage.setItem("cart",JSON.stringify(cart));
 }
 
-function renderProducts(filter="",cat="all"){
+/* RENDER PRODUCTS */
+function renderProducts(){
 let container=document.getElementById("product-list");
 container.innerHTML="";
+let search=document.getElementById("search").value.toLowerCase();
+
 products
-.filter(p=>p.name.toLowerCase().includes(filter.toLowerCase()))
-.filter(p=>cat==="all"||p.category===cat)
-.forEach((p,i)=>{
+.filter(p=>p.name.toLowerCase().includes(search))
+.filter(p=>currentCategory==="all"||p.category===currentCategory)
+.forEach(p=>{
 container.innerHTML+=`
 <div class="card">
-<h4>${p.name}</h4>
+<div>${p.name}</div>
 <div class="price">₹${p.price}</div>
 <div class="quantity">
-<button onclick="changeQty(${i},-1)">-</button>
-<span id="qty-${i}">1</span>
-<button onclick="changeQty(${i},1)">+</button>
+<button onclick="changeQty(${p.id},-1)">-</button>
+<span id="qty-${p.id}">1</span>
+<button onclick="changeQty(${p.id},1)">+</button>
 </div>
-<button class="add-btn" onclick="addToCart(${i})">Add</button>
+<button class="add-btn" onclick="addToCart(${p.id})">Add to Cart</button>
 </div>`;
 });
 }
-renderProducts();
 
-document.getElementById("search").addEventListener("input",e=>{
-renderProducts(e.target.value);
-});
+document.getElementById("search").addEventListener("input",renderProducts);
 
-function filterCategory(cat,btn){
+function setCategory(cat,btn){
+currentCategory=cat;
 document.querySelectorAll(".categories button").forEach(b=>b.classList.remove("active"));
 btn.classList.add("active");
-renderProducts("",cat);
+renderProducts();
 }
 
-function changeQty(i,val){
-let el=document.getElementById("qty-"+i);
+function changeQty(id,val){
+let el=document.getElementById("qty-"+id);
 let q=parseInt(el.innerText)+val;
 if(q<1) q=1;
 el.innerText=q;
 }
 
-function addToCart(i){
-let qty=parseInt(document.getElementById("qty-"+i).innerText);
-let existing=cart.find(item=>item.name===products[i].name);
+function addToCart(id){
+let qty=parseInt(document.getElementById("qty-"+id).innerText);
+let product=products.find(p=>p.id===id);
+let existing=cart.find(i=>i.id===id);
+
 if(existing){existing.qty+=qty;}
-else{cart.push({...products[i],qty});}
+else{cart.push({...product,qty});}
+
 updateCart();
 saveCart();
 }
 
-function removeItem(name){
-cart=cart.filter(item=>item.name!==name);
+function removeItem(id){
+cart=cart.filter(i=>i.id!==id);
 updateCart();
 saveCart();
 }
 
 function updateCart(){
-let total=0,totalQty=0;
 let html="";
-cart.forEach(item=>{
-let t=item.price*item.qty;
+let total=0;
+let totalQty=0;
+
+cart.forEach(i=>{
+let t=i.price*i.qty;
 total+=t;
-totalQty+=item.qty;
-html+=`<div class="cart-item">
-<span>${item.name} x${item.qty}</span>
+totalQty+=i.qty;
+html+=`
+<div class="cart-item">
+<span>${i.name} x${i.qty}</span>
 <span>₹${t}</span>
-<button class="remove" onclick="removeItem('${item.name}')">X</button>
+<button class="remove" onclick="removeItem(${i.id})">X</button>
 </div>`;
 });
-let delivery=total>=999?0:40;
+
+let delivery= total>=999?0:40;
 let finalTotal=total+delivery;
 
 html+=`<div class="total">Subtotal: ₹${total}</div>`;
@@ -350,90 +295,59 @@ html+=`<div class="total">Total: ₹${finalTotal}</div>`;
 document.getElementById("cartItems").innerHTML=html;
 document.getElementById("cart-count").innerText=totalQty;
 }
-updateCart();
 
 function toggleCart(){
 document.getElementById("cartPanel").classList.toggle("active");
 }
 
 function getLocation(){
-if(navigator.geolocation){
 navigator.geolocation.getCurrentPosition(pos=>{
-userLocation=`https://www.google.com/maps?q=${pos.coords.latitude},${pos.coords.longitude}`;
+userLocation=`https://maps.google.com/?q=${pos.coords.latitude},${pos.coords.longitude}`;
 localStorage.setItem("location",userLocation);
-alert("Location Captured!");
+alert("Location Captured");
 });
-}
 }
 
 function placeOrder(){
-
-if(!userLocation){
-alert("Please share location before ordering.");
-return;
-}
-
-if(cart.length===0){
-alert("Cart is empty");
-return;
-}
+if(!userLocation){alert("Please share location first");return;}
+if(cart.length===0){alert("Cart is empty");return;}
 
 let name=document.getElementById("name").value.trim();
 let phone=document.getElementById("phone").value.trim();
 let address=document.getElementById("address").value.trim();
 let payment=document.getElementById("payment").value;
 
-if(!name||!phone||!address){
-alert("Fill all details");
-return;
-}
-
-if(!/^[6-9]\d{9}$/.test(phone)){
-alert("Invalid Indian number");
-return;
-}
+if(!name||!phone||!address){alert("Fill all details");return;}
+if(!/^[6-9]\d{9}$/.test(phone)){alert("Invalid Indian number");return;}
 
 let orderID=generateOrderID();
 
-let message="New Order%0A";
-message+=`Order ID: ${orderID}%0A`;
-message+=`Name: ${name}%0A`;
-message+=`Phone: ${phone}%0A`;
-message+=`Address: ${address}%0A`;
-message+=`Payment: ${payment}%0A`;
-message+=`Location: ${userLocation}%0A%0A`;
+let text=`New Order\nOrder ID: ${orderID}\nName: ${name}\nPhone: ${phone}\nAddress: ${address}\nPayment: ${payment}\nLocation: ${userLocation}\n\n`;
 
 let total=0;
-cart.forEach(item=>{
-let t=item.price*item.qty;
+cart.forEach(i=>{
+let t=i.price*i.qty;
 total+=t;
-message+=`${item.name} x${item.qty} = ₹${t}%0A`;
+text+=`${i.name} x${i.qty} = ₹${t}\n`;
 });
 
-let delivery=total>=999?0:40;
+let delivery= total>=999?0:40;
 let finalTotal=total+delivery;
 
-message+=`Delivery: ₹${delivery}%0A`;
-message+=`Total: ₹${finalTotal}`;
+text+=`\nDelivery: ₹${delivery}\nTotal: ₹${finalTotal}`;
 
-window.open(`https://wa.me/919864696468?text=${message}`);
+window.open(`https://wa.me/919864696468?text=${encodeURIComponent(text)}`);
 
-emailjs.send("service_ojwxt5r","template_173h3jh",{
-order_id:orderID,
-customer_name:name,
-customer_phone:phone,
-customer_address:address,
-payment_method:payment,
-order_details:message
-});
-
-alert("Order Placed Successfully!\nYour Order ID: "+orderID);
+alert("Order Placed!\nYour Order ID: "+orderID);
 
 cart=[];
 localStorage.removeItem("cart");
 updateCart();
 toggleCart();
 }
+
+renderProducts();
+updateCart();
 </script>
 
 </body>
