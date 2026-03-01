@@ -5,12 +5,35 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Unipet Services</title>
 
+<link rel="icon" href="https://i.ibb.co/0dDZS5Q/Cream-Blue-Minimalist-Pet-Shop-and-Care-Logo-1.png">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif}
 body{background:#f1f3f6}
+
+/* ANNOUNCEMENT BAR */
+.announcement{
+background:#ff9f00;
+color:white;
+font-size:14px;
+padding:6px 0;
+overflow:hidden;
+white-space:nowrap;
+position:relative;
+}
+
+.announcement span{
+display:inline-block;
+padding-left:100%;
+animation:scroll 15s linear infinite;
+}
+
+@keyframes scroll{
+0%{transform:translateX(0);}
+100%{transform:translateX(-100%);}
+}
 
 /* HEADER */
 header{
@@ -20,18 +43,64 @@ display:flex;
 align-items:center;
 gap:20px;
 color:white;
+position:sticky;
+top:0;
+z-index:1000;
+transition:0.3s;
 }
 
-.logo{font-weight:600;font-size:18px}
+header.shadow{
+box-shadow:0 4px 12px rgba(0,0,0,0.15);
+}
+
+.logo{
+display:flex;
+align-items:center;
+gap:10px;
+font-weight:600;
+font-size:18px;
+}
+
+.logo img{
+height:38px;
+background:white;
+padding:4px;
+border-radius:6px;
+}
+
 .search-box{flex:1}
-.search-box input{width:100%;padding:8px;border:none;border-radius:4px}
+.search-box input{
+width:100%;
+padding:8px;
+border:none;
+border-radius:4px;
+}
+
+/* HERO */
+.hero{
+margin:15px;
+height:170px;
+background:url('https://i.ibb.co/0jsZWq4Q/file-00000000e6a871fa9d5151c5737d16df.png') center/cover no-repeat;
+border-radius:8px;
+}
 
 /* CATEGORY */
-.categories{display:flex;gap:10px;padding:10px}
-.categories button{
-padding:6px 12px;border:none;border-radius:4px;cursor:pointer
+.categories{
+display:flex;
+gap:10px;
+padding:10px 15px;
 }
-.categories .active{background:#2874f0;color:white}
+.categories button{
+padding:6px 12px;
+border:none;
+border-radius:4px;
+cursor:pointer;
+background:white;
+}
+.categories .active{
+background:#2874f0;
+color:white;
+}
 
 /* PRODUCTS */
 .products{
@@ -44,8 +113,8 @@ padding:15px;
 .card{
 background:white;
 padding:12px;
-border-radius:6px;
-box-shadow:0 2px 6px rgba(0,0,0,0.08);
+border-radius:8px;
+box-shadow:0 2px 8px rgba(0,0,0,0.08);
 display:flex;
 flex-direction:column;
 }
@@ -57,8 +126,20 @@ margin-bottom:8px;
 }
 
 .price{font-weight:600;margin:5px 0}
-.quantity{display:flex;gap:8px;align-items:center}
-.quantity button{padding:3px 8px;border:none;background:#2874f0;color:white}
+
+.quantity{
+display:flex;
+gap:8px;
+align-items:center;
+}
+.quantity button{
+padding:3px 8px;
+border:none;
+background:#2874f0;
+color:white;
+cursor:pointer;
+}
+
 .add-btn{
 margin-top:6px;
 background:#ff9f00;
@@ -67,6 +148,7 @@ border:none;
 padding:6px;
 width:100%;
 cursor:pointer;
+border-radius:4px;
 }
 
 /* CART BUTTON */
@@ -104,9 +186,19 @@ padding:20px;
 transition:0.3s;
 overflow:auto;
 box-shadow:-3px 0 8px rgba(0,0,0,0.1);
+z-index:2000;
 }
 
 .cart-panel.active{right:0}
+
+.back-btn{
+background:#ddd;
+border:none;
+padding:6px;
+margin-bottom:10px;
+cursor:pointer;
+width:100%;
+}
 
 .cart-item{
 display:flex;
@@ -157,12 +249,23 @@ cursor:pointer;
 
 <body>
 
-<header>
-<div class="logo">Unipet Services</div>
+<!-- Announcement -->
+<div class="announcement">
+<span>🚚 Free Delivery Above ₹599 & On All Prepaid Orders | COD Orders ₹20 Extra Charge</span>
+</div>
+
+<header id="header">
+<div class="logo">
+<img src="https://i.ibb.co/0dDZS5Q/Cream-Blue-Minimalist-Pet-Shop-and-Care-Logo-1.png">
+<span>Unipet Services</span>
+</div>
+
 <div class="search-box">
 <input type="text" id="search" placeholder="Search pet food...">
 </div>
 </header>
+
+<div class="hero"></div>
 
 <div class="categories">
 <button class="active" onclick="setCategory('all',this)">All</button>
@@ -177,6 +280,7 @@ cursor:pointer;
 </div>
 
 <div class="cart-panel" id="cartPanel">
+<button class="back-btn" onclick="toggleCart()">⬅ Back to Home</button>
 <h3>Your Cart</h3>
 <div id="cartItems"></div>
 
@@ -184,9 +288,9 @@ cursor:pointer;
 <input type="text" id="phone" placeholder="Phone Number">
 <input type="text" id="address" placeholder="Full Address">
 
-<select id="payment">
-<option value="COD">Cash on Delivery</option>
-<option value="Online">Online Payment</option>
+<select id="payment" onchange="updateCart()">
+<option value="COD">Cash on Delivery (₹20 Extra)</option>
+<option value="Prepaid">Online Prepaid (Free Delivery)</option>
 </select>
 
 <button class="location-btn" onclick="getLocation()">Use Current Location</button>
@@ -196,166 +300,23 @@ cursor:pointer;
 <script>
 emailjs.init("B1bbMrGsxv1o4hUd5");
 
-/* PRODUCTS WITH IMAGES */
+/* PRODUCTS */
 const products=[
 {id:1,name:"Pedigree 1kg Adult",price:209,category:"dog",img:"https://i.ibb.co/n8cRQyhb/IMG-20260228-212828.png"},
-{id:2,name:"Pedigree 3kg Adult",price:599,category:"dog",img:"https://i.ibb.co/7tGtWgwr/IMG-20260228-212854.jpg"},
-{id:3,name:"Purepet Cat 1kg",price:189,category:"cat",img:"https://i.ibb.co/1JYWQDgs/file-00000000aee471faa75b969198f2643e.png"},
-{id:4,name:"Whiskas Cat 1kg",price:409,category:"cat",img:"https://i.ibb.co/KxNPVWFD/IMG-20260301-011737.jpg"}
+{id:2,name:"Whiskas Cat 1kg",price:409,category:"cat",img:"https://i.ibb.co/KxNPVWFD/IMG-20260301-011737.jpg"}
 ];
 
 let cart=JSON.parse(localStorage.getItem("cart"))||[];
 let userLocation=localStorage.getItem("location")||"";
 let currentCategory="all";
 
-/* ORDER ID */
 function generateOrderID(){
 let d=new Date();
 return "UNI"+d.getFullYear()+String(d.getMonth()+1).padStart(2,'0')+
 String(d.getDate()).padStart(2,'0')+"-"+Math.floor(1000+Math.random()*9000);
 }
 
-function saveCart(){
-localStorage.setItem("cart",JSON.stringify(cart));
-}
+function saveCart(){localStorage.setItem("cart",JSON.stringify(cart));}
 
-/* RENDER */
 function renderProducts(){
-let container=document.getElementById("product-list");
-container.innerHTML="";
-let search=document.getElementById("search").value.toLowerCase();
-
-products
-.filter(p=>p.name.toLowerCase().includes(search))
-.filter(p=>currentCategory==="all"||p.category===currentCategory)
-.forEach(p=>{
-container.innerHTML+=`
-<div class="card">
-<img src="${p.img}">
-<div>${p.name}</div>
-<div class="price">₹${p.price}</div>
-<div class="quantity">
-<button onclick="changeQty(${p.id},-1)">-</button>
-<span id="qty-${p.id}">1</span>
-<button onclick="changeQty(${p.id},1)">+</button>
-</div>
-<button class="add-btn" onclick="addToCart(${p.id})">Add to Cart</button>
-</div>`;
-});
-}
-
-document.getElementById("search").addEventListener("input",renderProducts);
-
-function setCategory(cat,btn){
-currentCategory=cat;
-document.querySelectorAll(".categories button").forEach(b=>b.classList.remove("active"));
-btn.classList.add("active");
-renderProducts();
-}
-
-function changeQty(id,val){
-let el=document.getElementById("qty-"+id);
-let q=parseInt(el.innerText)+val;
-if(q<1) q=1;
-el.innerText=q;
-}
-
-function addToCart(id){
-let qty=parseInt(document.getElementById("qty-"+id).innerText);
-let product=products.find(p=>p.id===id);
-let existing=cart.find(i=>i.id===id);
-if(existing){existing.qty+=qty;}
-else{cart.push({...product,qty});}
-updateCart();
-saveCart();
-}
-
-function removeItem(id){
-cart=cart.filter(i=>i.id!==id);
-updateCart();
-saveCart();
-}
-
-function updateCart(){
-let html="";
-let total=0,totalQty=0;
-
-cart.forEach(i=>{
-let t=i.price*i.qty;
-total+=t;
-totalQty+=i.qty;
-html+=`
-<div class="cart-item">
-<span>${i.name} x${i.qty}</span>
-<span>₹${t}</span>
-<button class="remove" onclick="removeItem(${i.id})">X</button>
-</div>`;
-});
-
-let delivery= total>=999?0:40;
-let finalTotal=total+delivery;
-
-html+=`<div class="total">Subtotal: ₹${total}</div>`;
-html+=`<div class="total">Delivery: ₹${delivery}</div>`;
-html+=`<div class="total">Total: ₹${finalTotal}</div>`;
-
-document.getElementById("cartItems").innerHTML=html;
-document.getElementById("cart-count").innerText=totalQty;
-}
-
-function toggleCart(){
-document.getElementById("cartPanel").classList.toggle("active");
-}
-
-function getLocation(){
-navigator.geolocation.getCurrentPosition(pos=>{
-userLocation=`https://maps.google.com/?q=${pos.coords.latitude},${pos.coords.longitude}`;
-localStorage.setItem("location",userLocation);
-alert("Location Captured");
-});
-}
-
-function placeOrder(){
-if(!userLocation){alert("Please share location first");return;}
-if(cart.length===0){alert("Cart is empty");return;}
-
-let name=document.getElementById("name").value.trim();
-let phone=document.getElementById("phone").value.trim();
-let address=document.getElementById("address").value.trim();
-let payment=document.getElementById("payment").value;
-
-if(!name||!phone||!address){alert("Fill all details");return;}
-if(!/^[6-9]\d{9}$/.test(phone)){alert("Invalid Indian number");return;}
-
-let orderID=generateOrderID();
-
-let text=`New Order\nOrder ID: ${orderID}\nName: ${name}\nPhone: ${phone}\nAddress: ${address}\nPayment: ${payment}\nLocation: ${userLocation}\n\n`;
-
-let total=0;
-cart.forEach(i=>{
-let t=i.price*i.qty;
-total+=t;
-text+=`${i.name} x${i.qty} = ₹${t}\n`;
-});
-
-let delivery= total>=999?0:40;
-let finalTotal=total+delivery;
-
-text+=`\nDelivery: ₹${delivery}\nTotal: ₹${finalTotal}`;
-
-window.open(`https://wa.me/919864696468?text=${encodeURIComponent(text)}`);
-
-alert("Order Placed!\nYour Order ID: "+orderID);
-
-cart=[];
-localStorage.removeItem("cart");
-updateCart();
-toggleCart();
-}
-
-renderProducts();
-updateCart();
-</script>
-
-</body>
-</html>
+let container=document.getElementById
