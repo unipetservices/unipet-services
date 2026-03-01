@@ -23,43 +23,45 @@ gap:20px;
 position:sticky;
 top:0;
 z-index:1000;
-}
-
-.logo{
-display:flex;
-align-items:center;
-gap:8px;
 color:white;
-font-weight:600;
-font-size:18px;
 }
 
-.logo img{
-height:35px;
-background:white;
-padding:4px;
-border-radius:6px;
-}
+.logo{display:flex;align-items:center;gap:8px;font-weight:600;font-size:18px}
+.logo img{height:35px;background:white;padding:4px;border-radius:6px}
 
-.search-box{flex:1;}
-
+.search-box{flex:1}
 .search-box input{
-width:100%;
-padding:10px;
+width:100%;padding:10px;border:none;border-radius:4px;outline:none
+}
+
+/* CATEGORY */
+.categories{
+display:flex;
+gap:10px;
+padding:10px 15px;
+}
+.categories button{
+padding:6px 12px;
 border:none;
+background:white;
+cursor:pointer;
 border-radius:4px;
-outline:none;
+font-size:13px;
+}
+.categories button.active{
+background:#2874f0;
+color:white;
 }
 
 /* HERO */
 .hero{
 margin:15px;
-height:180px;
+height:160px;
 background:url('https://i.ibb.co/0jsZWq4Q/file-00000000e6a871fa9d5151c5737d16df.png') center/cover no-repeat;
 border-radius:8px;
 }
 
-/* PRODUCTS – ALWAYS 2 PER ROW */
+/* PRODUCTS */
 .products{
 padding:15px;
 display:grid;
@@ -76,21 +78,8 @@ display:flex;
 flex-direction:column;
 }
 
-.card img{
-height:140px;
-object-fit:contain;
-margin-bottom:8px;
-}
-
-.card h4{
-font-size:14px;
-min-height:35px;
-}
-
-.price{
-font-weight:600;
-margin:5px 0;
-}
+.card h4{font-size:14px;min-height:35px}
+.price{font-weight:600;margin:5px 0;color:#212121}
 
 .quantity{
 display:flex;
@@ -99,26 +88,16 @@ justify-content:center;
 gap:10px;
 margin:6px 0;
 }
-
 .quantity button{
-background:#2874f0;
-color:white;
-border:none;
-padding:4px 8px;
-cursor:pointer;
+background:#2874f0;color:white;border:none;padding:4px 8px;cursor:pointer
 }
 
 .add-btn{
-background:#ff9f00;
-color:white;
-border:none;
-padding:8px;
-border-radius:4px;
-cursor:pointer;
-font-weight:500;
+background:#ff9f00;color:white;border:none;padding:8px;border-radius:4px;
+cursor:pointer;font-weight:500;
 }
 
-/* CART */
+/* CART BUTTON */
 .cart-btn{
 position:fixed;
 bottom:20px;
@@ -142,17 +121,18 @@ padding:2px 6px;
 border-radius:50%;
 }
 
+/* CART PANEL */
 .cart-panel{
 position:fixed;
 right:-100%;
 top:0;
-width:100%;
-max-width:400px;
+width:350px;
 height:100%;
 background:white;
 padding:20px;
 transition:0.4s;
 overflow:auto;
+box-shadow:-3px 0 10px rgba(0,0,0,0.1);
 }
 
 .cart-panel.active{right:0}
@@ -160,16 +140,23 @@ overflow:auto;
 .cart-item{
 display:flex;
 justify-content:space-between;
+align-items:center;
 margin:6px 0;
 font-size:14px;
 }
 
-.total{
-margin-top:10px;
-font-weight:600;
+.remove{
+background:red;
+color:white;
+border:none;
+padding:2px 6px;
+cursor:pointer;
+font-size:11px;
 }
 
-input{
+.total{margin-top:6px;font-weight:600}
+
+input,select{
 width:100%;
 margin-top:8px;
 padding:8px;
@@ -222,8 +209,13 @@ Unipet Services
 </div>
 </header>
 
-<div class="hero"></div>
+<div class="categories">
+<button onclick="filterCategory('all',this)" class="active">All</button>
+<button onclick="filterCategory('dog',this)">Dog</button>
+<button onclick="filterCategory('cat',this)">Cat</button>
+</div>
 
+<div class="hero"></div>
 <div class="products" id="product-list"></div>
 
 <div class="cart-btn" onclick="toggleCart()">
@@ -234,11 +226,15 @@ Unipet Services
 <div class="cart-panel" id="cartPanel">
 <h3>Your Cart</h3>
 <div id="cartItems"></div>
-<div class="total" id="total">Total: ₹0</div>
 
 <input type="text" id="name" placeholder="Your Name">
-<input type="text" id="phone" placeholder="Phone Number (10 digits)">
-<input type="text" id="address" placeholder="Full Delivery Address">
+<input type="text" id="phone" placeholder="Phone Number">
+<input type="text" id="address" placeholder="Full Address">
+
+<select id="payment">
+<option value="COD">Cash on Delivery</option>
+<option value="Online">Online Payment</option>
+</select>
 
 <button class="location-btn" onclick="getLocation()">Use Current Location</button>
 <button class="place" onclick="placeOrder()">Place Order</button>
@@ -249,28 +245,43 @@ Unipet Services
 <script>
 emailjs.init("B1bbMrGsxv1o4hUd5");
 
+/* PRODUCTS */
 const products=[
-{name:"Pedigree 1kg Adult",price:209,img:"https://i.ibb.co/n8cRQyhb/IMG-20260228-212828.png"},
-{name:"Pedigree 3kg Adult",price:599,img:"https://i.ibb.co/7tGtWgwr/IMG-20260228-212854.jpg"},
-{name:"Pro Starter 3kg",price:1399,img:"https://i.ibb.co/2733b0wP/IMG-20260228-213114.jpg"},
-{name:"Puppy 1kg",price:229,img:"https://i.ibb.co/TDr5h1KP/file-00000000e4f071fa8ff22fb227bea57a.png"},
-{name:"Drools 1kg",price:234,img:"https://i.ibb.co/4RqL39dH/file-00000000e7d471fa8d0e7ed8006838ce.png"},
-{name:"Purepet Cat",price:189,img:"https://i.ibb.co/1JYWQDgs/file-00000000aee471faa75b969198f2643e.png"},
-{name:"Whiskas Cat",price:409,img:"https://i.ibb.co/KxNPVWFD/IMG-20260301-011737.jpg"}
+{name:"Pedigree 1kg Adult",price:209,category:"dog"},
+{name:"Pedigree 3kg Adult",price:599,category:"dog"},
+{name:"Pro Starter 3kg",price:1399,category:"dog"},
+{name:"Puppy 1kg",price:229,category:"dog"},
+{name:"Drools 1kg",price:234,category:"dog"},
+{name:"Purepet Cat",price:189,category:"cat"},
+{name:"Whiskas Cat",price:409,category:"cat"}
 ];
 
-let cart=[];
-let userLocation="Location not shared";
+let cart=JSON.parse(localStorage.getItem("cart"))||[];
+let userLocation=localStorage.getItem("location")||"";
 
-function renderProducts(filter=""){
+/* ORDER ID GENERATOR */
+function generateOrderID(){
+let date=new Date();
+let y=date.getFullYear();
+let m=String(date.getMonth()+1).padStart(2,'0');
+let d=String(date.getDate()).padStart(2,'0');
+let r=Math.floor(1000+Math.random()*9000);
+return `UNI${y}${m}${d}-${r}`;
+}
+
+function saveCart(){
+localStorage.setItem("cart",JSON.stringify(cart));
+}
+
+function renderProducts(filter="",cat="all"){
 let container=document.getElementById("product-list");
 container.innerHTML="";
 products
 .filter(p=>p.name.toLowerCase().includes(filter.toLowerCase()))
+.filter(p=>cat==="all"||p.category===cat)
 .forEach((p,i)=>{
 container.innerHTML+=`
 <div class="card">
-<img src="${p.img}">
 <h4>${p.name}</h4>
 <div class="price">₹${p.price}</div>
 <div class="quantity">
@@ -278,7 +289,7 @@ container.innerHTML+=`
 <span id="qty-${i}">1</span>
 <button onclick="changeQty(${i},1)">+</button>
 </div>
-<button class="add-btn" onclick="addToCart(${i})">Add to Cart</button>
+<button class="add-btn" onclick="addToCart(${i})">Add</button>
 </div>`;
 });
 }
@@ -287,6 +298,12 @@ renderProducts();
 document.getElementById("search").addEventListener("input",e=>{
 renderProducts(e.target.value);
 });
+
+function filterCategory(cat,btn){
+document.querySelectorAll(".categories button").forEach(b=>b.classList.remove("active"));
+btn.classList.add("active");
+renderProducts("",cat);
+}
 
 function changeQty(i,val){
 let el=document.getElementById("qty-"+i);
@@ -298,29 +315,42 @@ el.innerText=q;
 function addToCart(i){
 let qty=parseInt(document.getElementById("qty-"+i).innerText);
 let existing=cart.find(item=>item.name===products[i].name);
-if(existing){
-existing.qty+=qty;
-}else{
-cart.push({...products[i],qty});
-}
+if(existing){existing.qty+=qty;}
+else{cart.push({...products[i],qty});}
 updateCart();
+saveCart();
+}
+
+function removeItem(name){
+cart=cart.filter(item=>item.name!==name);
+updateCart();
+saveCart();
 }
 
 function updateCart(){
-document.getElementById("cart-count").innerText=cart.length;
-let total=0;
+let total=0,totalQty=0;
 let html="";
 cart.forEach(item=>{
 let t=item.price*item.qty;
 total+=t;
+totalQty+=item.qty;
 html+=`<div class="cart-item">
 <span>${item.name} x${item.qty}</span>
 <span>₹${t}</span>
+<button class="remove" onclick="removeItem('${item.name}')">X</button>
 </div>`;
 });
+let delivery=total>=999?0:40;
+let finalTotal=total+delivery;
+
+html+=`<div class="total">Subtotal: ₹${total}</div>`;
+html+=`<div class="total">Delivery: ₹${delivery}</div>`;
+html+=`<div class="total">Total: ₹${finalTotal}</div>`;
+
 document.getElementById("cartItems").innerHTML=html;
-document.getElementById("total").innerText="Total: ₹"+total;
+document.getElementById("cart-count").innerText=totalQty;
 }
+updateCart();
 
 function toggleCart(){
 document.getElementById("cartPanel").classList.toggle("active");
@@ -330,14 +360,18 @@ function getLocation(){
 if(navigator.geolocation){
 navigator.geolocation.getCurrentPosition(pos=>{
 userLocation=`https://www.google.com/maps?q=${pos.coords.latitude},${pos.coords.longitude}`;
-alert("Location captured successfully!");
+localStorage.setItem("location",userLocation);
+alert("Location Captured!");
 });
-}else{
-alert("Location not supported");
 }
 }
 
 function placeOrder(){
+
+if(!userLocation){
+alert("Please share location before ordering.");
+return;
+}
 
 if(cart.length===0){
 alert("Cart is empty");
@@ -347,20 +381,27 @@ return;
 let name=document.getElementById("name").value.trim();
 let phone=document.getElementById("phone").value.trim();
 let address=document.getElementById("address").value.trim();
+let payment=document.getElementById("payment").value;
 
 if(!name||!phone||!address){
 alert("Fill all details");
 return;
 }
 
-/* STRICT INDIAN PHONE VALIDATION */
 if(!/^[6-9]\d{9}$/.test(phone)){
-alert("Enter valid 10-digit Indian mobile number");
+alert("Invalid Indian number");
 return;
 }
 
+let orderID=generateOrderID();
+
 let message="New Order%0A";
-message+=`Name: ${name}%0APhone: ${phone}%0AAddress: ${address}%0ALocation: ${userLocation}%0A%0A`;
+message+=`Order ID: ${orderID}%0A`;
+message+=`Name: ${name}%0A`;
+message+=`Phone: ${phone}%0A`;
+message+=`Address: ${address}%0A`;
+message+=`Payment: ${payment}%0A`;
+message+=`Location: ${userLocation}%0A%0A`;
 
 let total=0;
 cart.forEach(item=>{
@@ -368,19 +409,28 @@ let t=item.price*item.qty;
 total+=t;
 message+=`${item.name} x${item.qty} = ₹${t}%0A`;
 });
-message+=`%0ATotal: ₹${total}`;
+
+let delivery=total>=999?0:40;
+let finalTotal=total+delivery;
+
+message+=`Delivery: ₹${delivery}%0A`;
+message+=`Total: ₹${finalTotal}`;
 
 window.open(`https://wa.me/919864696468?text=${message}`);
 
 emailjs.send("service_ojwxt5r","template_173h3jh",{
+order_id:orderID,
 customer_name:name,
 customer_phone:phone,
 customer_address:address,
+payment_method:payment,
 order_details:message
 });
 
-alert("Order Placed Successfully!");
+alert("Order Placed Successfully!\nYour Order ID: "+orderID);
+
 cart=[];
+localStorage.removeItem("cart");
 updateCart();
 toggleCart();
 }
